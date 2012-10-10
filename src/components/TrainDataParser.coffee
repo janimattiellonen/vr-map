@@ -21,6 +21,7 @@ class TrainDataParser
         }
 
     filter: (xml) ->
+        # Didn't find any way to access georss:point so I simply replaced it with 'point'
         xml = xml.replace(new RegExp('georss:point', 'g'), 'point');
 
 exports.TrainDataParser = TrainDataParser
