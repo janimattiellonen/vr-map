@@ -47,6 +47,19 @@ html, body, #map_canvas, #selected-trains {
 
 }
 
+#controls div.status-box
+{
+    border: solid red 1px;
+    float: left;
+    width: 370px;
+    padding: 10px;
+}
+
+.hidden
+{
+    display: none;
+}
+
 #controls, #train-info
 {
     width: 45%;

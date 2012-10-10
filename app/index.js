@@ -81,10 +81,20 @@ app.post("/find-train", function(req, res) {
       return str += chunk;
     });
     return response.on("end", function() {
-      var data;
-      data = parser.parse(str);
+      var data, resultData, status;
+      try {
+        data = parser.parse(str);
+        status = true;
+      } catch (err) {
+        data = {};
+        status = false;
+      }
+      resultData = {
+        status: status,
+        data: data
+      };
       res.contentType('application/json');
-      return res.end(JSON.stringify(data, 200));
+      return res.end(JSON.stringify(resultData, 200));
     });
   };
   return http.request(options, callback).end();

@@ -73,9 +73,20 @@ app.post "/find-train", (req, res) ->
             str += chunk
 
         response.on "end", ->
-            data = parser.parse str
-            res.contentType 'application/json'
-            res.end(JSON.stringify data, 200 )
 
+            try
+                data = parser.parse str
+                status = true
+            catch err
+                data = {}
+                status = false
+
+            resultData = {
+                status: status,
+                data: data
+            }
+
+            res.contentType 'application/json'
+            res.end(JSON.stringify resultData, 200 )
 
     http.request(options, callback).end()

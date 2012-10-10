@@ -6,8 +6,6 @@ class TrainDataParser
 
         xml = @filter xml
 
-
-
         obj = @libxmljs.parseXml xml
 
         data = {
