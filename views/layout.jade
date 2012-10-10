@@ -1,0 +1,47 @@
+!!! 5
+html
+    head
+        title= "Vr map"
+        link(rel='stylesheet', href='/styles/styles.css')
+
+        script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?sensor=false")
+        script(type="text/javascript", src="http://code.jquery.com/jquery.min.js")
+        script(type="text/javascript", src="/js/TrainApiClient.js")
+        script(type="text/javascript", src="/js/TrainInfo.js")
+        script(type="text/javascript", src="/js/TrainLocator.js")
+        script(type="text/javascript", src="/js/TrainTracker.js")
+        script(type="text/javascript", src="/js/TrainList.js")
+
+        script(type="text/javascript")
+            var map;
+            var overlay;
+
+            var client = new TrainApiClient('/find-train');
+            var trainInfo = new TrainInfo('#train-info');
+            var trainLocator = new TrainLocator('#controls', trainInfo, client);
+            var trainTracker = new TrainTracker(client, window);
+            var trainList = new TrainList('#selected-trains', trainTracker.trackTrain, trainTracker.cancelTracking);
+
+
+            function initialize() {
+                var mapOptions = {
+                    zoom: 8,
+                    center: new google.maps.LatLng(65.4911300000001, 28.3853900000001),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById('map_canvas'),
+                        mapOptions);
+
+                overlay = new google.maps.OverlayView();
+                overlay.draw = function() {};
+                overlay.setMap(map);
+                trainTracker.setMap(map)
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+    body
+        // include menu
+        block content
+
+        script(type="text/javascript", src="/js/train.js")

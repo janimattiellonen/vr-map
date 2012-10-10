@@ -1,0 +1,82 @@
+html, body, #map_canvas, #selected-trains {
+    margin: 0;
+    padding: 0;
+    height: 90%;
+}
+
+#map_canvas {
+    float: left;
+    width: 80%;
+}
+
+#selected-trains {
+    width: 18%;
+    float: left;
+
+    padding: 0 1%;
+    height: 91;
+}
+
+#selected-trains h1
+{
+    margin: 5px 0 5px 0;
+}
+
+#selected-trains ul
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#selected-trains ul li
+{
+    border: solid red 1px;
+    margin-bottom: 5px;
+    padding: 6px 3px 3px 10px;
+    border-radius: 15px;
+}
+
+#selected-trains ul li.active
+{
+    background: red;
+}
+
+#controls
+{
+
+}
+
+#controls, #train-info
+{
+    width: 45%;
+    float: left;
+    padding: 10px;
+}
+
+#controls #code
+{
+    margin: 10px;
+}
+
+#controls #add-train
+{
+    margin-left: 5px;
+}
+
+.dot
+{
+    position: absolute;
+    width: 3px;
+    height: 3px;
+}
+
+#train-info table
+{
+    width: 100%;
+}
+
+#train-info table td.first
+{
+    width: 40%;
+}

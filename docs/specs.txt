@@ -1,0 +1,22 @@
+vr-map specs
+
+
+- can track multiple trains
+- can select, which train to follow in close
+- can add/remove trains to/from track list
+- shows train information
+- shows
+
+
+
+Technology used:
+
+
+- database:
+    - MongoDb
+- backend
+    - Node.js?
+
+- less
+
+- coffeescript
