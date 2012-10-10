@@ -4,7 +4,6 @@ express = require 'express'
 
 #require './services/TodoService3'
 TrainDataParser = require("./components/TrainDataParser").TrainDataParser
-Foo = require("./services/Foo").Foo
 
 pub = __dirname + '/web'
 
