@@ -30,6 +30,8 @@ class TrainTracker
         ), 3000
 
     processResult: (data) =>
+        data = data.data
+
         lat = data.point[0]
         long = data.point[1]
         title = data.title
