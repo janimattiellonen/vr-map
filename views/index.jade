@@ -5,45 +5,47 @@ block content
     div#map_canvas
 
     div#selected-trains
-        h1 Selected trains
+        h2 Find train
 
-        p The list below could be an accordion with train details loaded
+        div#controls
 
-        ul
+            form(method="post", action="/train")
+                p
+                    label(for="code") Code:
+                    input(type="text", name="code", id="code")
+
+                    input(type="submit", id="submit", value="Find")
+                    input(type="submit", id="add-train", disabled="disabled", value="Add")
+
+                    input(type="hidden", name="selected-train", id="selected-train", value="")
+                div(class="status-box hidden")
+
+            h2 Train info
+
+            div#train-info
+                    table
+                        tr
+                            td.first Train id
+                            td#train-id-col
+
+                        tr
+                            td Speed
+                            td#train-speed-col
+
+                        tr
+                            td Late (in seconds)
+                            td#train-lateness-col
+
+                        tr
+                            td From
+                            td#train-from-col
+
+                        tr
+                            td To
+                            td#train-to-col
+
+            h2 Selected trains
+
+            ul
 
 
-    div#controls
-
-        form(method="post", action="/train")
-            p
-                label(for="code") Train code:
-                input(type="text", name="code", id="code")
-
-                input(type="submit", id="submit", value="Find train")
-                input(type="submit", id="add-train", disabled="disabled", value="Add train")
-
-                input(type="hidden", name="selected-train", id="selected-train", value="")
-            div(class="status-box hidden")
-
-
-    div#train-info
-        table
-            tr
-                td.first Train id
-                td#train-id-col
-
-            tr
-                td Speed
-                td#train-speed-col
-
-            tr
-                td Late (in seconds)
-                td#train-lateness-col
-
-            tr
-                td From
-                td#train-from-col
-
-            tr
-                td To
-                td#train-to-col
