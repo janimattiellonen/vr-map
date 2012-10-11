@@ -11,10 +11,8 @@ class TrainLocator
             @clearErrorMessage()
 
             data = data.data
-            lat = data.point[0]
-            long = data.point[1]
-            title = data.title
-            pos = new google.maps.LatLng(lat, long)
+
+            pos = new google.maps.LatLng(data.point[0], data.point[1])
 
             @setSelectedTrainId data.trainguid
             @setAddTrainButtonState true
