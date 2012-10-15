@@ -40,9 +40,7 @@ StationService = require('./Service/StationService').StationService
 
 stationService = new StationService(client)
 
-
 app = express()
-#app = express.createServer()
 app.listen 3001
 
 console.log 'Express app started on port 3001'
