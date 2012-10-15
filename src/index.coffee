@@ -1,5 +1,8 @@
 express = require 'express'
 
+
+
+
 #require './components/TrainDataParser'
 
 #require './services/TodoService3'
@@ -16,23 +19,25 @@ http = require 'http'
 
 libxmljs = require "libxmljs"
 
-xml =  '<rss version="2.0"><channel xmlns:georss="http://www.georss.org/georss"><title>S 60</title><description>Train information feed for train S 60</description><lastBuildDate>Tue, 02 Oct 2012 00:13:28 +0300</lastBuildDate><category>1</category><trainguid>S60</trainguid><georss:point>0 0</georss:point><speed>0</speed><heading/><startStation>ROI</startStation><endStation>HKI</endStation><status>1</status><reasonCode/><lateness>0</lateness><item><guid isPermaLink="false">ROI</guid><title>ROI</title><description>Summary</description><pubDate>Tue, 02 Oct 2012 00:13:28 +0300</pubDate><scheduledTime/><scheduledDepartTime>15:10</scheduledDepartTime><eta/><etd>15:10</etd><stationCode>ROI</stationCode><completed>0</completed><status>1</status><georss:point>0 0</georss:point></item></channel></rss>'
+Db = require("mongodb").Db
+Server = require("mongodb").Server
+client = new Db("vrmap", new Server("127.0.0.1", 22222, {auto_connect: false}))
 
-
-parser = new TrainDataParser(libxmljs)
-
-result = parser.parse xml
-
-#console.log result
-
-
-server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('vr-map_db', server);
-
-db.open (err, db) ->
+client.open (err, client) ->
     unless err
         console.log "Connected to MongoDb"
-        db.collection "todos", (err, collection) ->
+        client.collection "stations", (err, collection) ->
+            collection.insert
+                dd: "ff",
+                safe: true,
+                (err, collection) ->
+
+client.close()
+
+StationService = require('./Service/StationService').StationService
+
+stationService = new StationService(client)
+
 
 app = express()
 #app = express.createServer()
@@ -81,8 +86,8 @@ app.post "/find-train", (req, res) ->
                 status = false
 
             resultData = {
-                status: status,
-                data: data
+            status: status,
+            data: data
             }
 
             res.contentType 'application/json'
