@@ -19,6 +19,8 @@ http = require 'http'
 
 libxmljs = require "libxmljs"
 
+parser = new TrainDataParser(libxmljs)
+
 Db = require("mongodb").Db
 Server = require("mongodb").Server
 client = new Db("vrmap", new Server("127.0.0.1", 22222, {auto_connect: false}))
@@ -82,6 +84,7 @@ app.post "/find-train", (req, res) ->
                 data = parser.parse str
                 status = true
             catch err
+                console.log err
                 data = {}
                 status = false
 
