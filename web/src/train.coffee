@@ -25,9 +25,3 @@ $(document).ready ->
         e.preventDefault()
 
         trainList.addTrain $('#selected-train').val(), $('#code').val()
-#
-#    setInterval(function(){
-#        triggerSubmit();
-#    }, 5000);
-#
-
