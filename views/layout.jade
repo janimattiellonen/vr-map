@@ -19,9 +19,10 @@ html
             var client = new TrainApiClient('/find-train');
             var trainInfo = new TrainInfo('#train-info');
             var trainLocator = new TrainLocator('#controls', trainInfo, client);
-            var trainTracker = new TrainTracker(client, window, trainInfo);
+            var trainTracker = new TrainTracker(client, window);
             var trainList = new TrainList('#selected-trains', trainTracker.trackTrain, trainTracker.cancelTracking);
 
+            trainTracker.addListener(trainInfo.updateInfo);
 
             function initialize() {
                 var mapOptions = {

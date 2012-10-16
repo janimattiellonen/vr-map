@@ -1,10 +1,10 @@
 class TrainTracker
-    constructor: (@client, window, trainInfo) ->
+    constructor: (@client, window) ->
         @isTracking     = false
         @markerArray    = []
         @intervalId     = null
         @window         = window
-        @trainInfo      = trainInfo
+        @listeners      = []
 
     trackTrain: (trainCode) =>
         @_trackTrain trainCode
@@ -50,8 +50,14 @@ class TrainTracker
 
         @markerArray.push marker
 
-        @trainInfo.updateInfo data
+        for listener in @listeners
+            listener data
+
+        #@trainInfo.updateInfo data
 
     setMap: (map) ->
         @map = map
 
+    # Add a callback that will be called when new train information is available
+    addListener: (listenerCallback) ->
+        @listeners.push listenerCallback
