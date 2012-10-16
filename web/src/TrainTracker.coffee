@@ -1,9 +1,10 @@
 class TrainTracker
-    constructor: (@client, window) ->
-        @isTracking = false
-        @markerArray = []
-        @intervalId = null
-        @window = window
+    constructor: (@client, window, trainInfo) ->
+        @isTracking     = false
+        @markerArray    = []
+        @intervalId     = null
+        @window         = window
+        @trainInfo      = trainInfo
 
     trackTrain: (trainCode) =>
         @_trackTrain trainCode
@@ -48,6 +49,8 @@ class TrainTracker
         map.setCenter pos
 
         @markerArray.push marker
+
+        @trainInfo.updateInfo data
 
     setMap: (map) ->
         @map = map

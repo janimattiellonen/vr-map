@@ -19,7 +19,6 @@ class TrainList
 
                 @cancelTrackingCallback()
 
-
                 if $li.hasClass "active"
                     $li.removeClass "active"
                 else
