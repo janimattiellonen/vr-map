@@ -6,6 +6,7 @@ express = require 'express'
 #require './components/TrainDataParser'
 
 #require './services/TodoService3'
+StationService = require('./Service/StationService').StationService
 TrainDataParser = require("./components/TrainDataParser").TrainDataParser
 
 pub = __dirname + '/web'
@@ -19,7 +20,8 @@ http = require 'http'
 
 libxmljs = require "libxmljs"
 
-parser = new TrainDataParser(libxmljs)
+
+
 
 Db = require("mongodb").Db
 Server = require("mongodb").Server
@@ -36,9 +38,11 @@ client.open (err, client) ->
 
 client.close()
 
-StationService = require('./Service/StationService').StationService
-
 stationService = new StationService(client)
+parser = new TrainDataParser(libxmljs, stationService)
+
+
+
 
 app = express()
 app.listen 3001
@@ -58,6 +62,20 @@ app.configure ->
 app.set "view engine", "jade"
 app.set "view options",
     layout: false
+
+app.get '/stations', (req, res) ->
+    stations = [
+        {code: "HKI", name: "Helsinki"}
+        {code: "PSL", name: "Pasila"}
+    ]
+
+    resultData = {
+        stations: stations,
+        status: true
+    }
+
+    res.contentType 'application/json'
+    res.end(JSON.stringify resultData, 200 )
 
 app.get "/", (req, res) ->
     res.render "index"

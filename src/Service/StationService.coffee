@@ -1,8 +1,10 @@
 class StationService
     constructor: (@db) ->
-        @initIfNoStations()
+        @initIfNoStations(@loadStations)
 
-    initIfNoStations: ->
+        @stations = []
+
+    initIfNoStations: (doneCallback) ->
         self = this
 
         @db.open (err, db) ->
@@ -10,6 +12,9 @@ class StationService
                 collection.find({}).toArray (err, results) ->
                     if results.length == 0
                         self.initStations()
+                        doneCallback()
+                    else
+                        doneCallback()
 
     initStations: ->
         list = [
@@ -64,6 +69,16 @@ class StationService
             for station in list
                 do (station) ->
                     collection.insert station, {safe: true} , (err) ->
-                        console.log err
+
+    loadStations: =>
+        @db.collection "stations", (err, collection) =>
+            collection.find({}).toArray (err, results) =>
+                if results.length != 0
+                    for row in results
+                        do (row) =>
+                            @stations[row.code] = row.name
+
+    getStation: (stationCode) ->
+        return if @stations[stationCode]? then @stations[stationCode] else stationCode
 
 exports.StationService = StationService

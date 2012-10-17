@@ -1,6 +1,6 @@
 
 class TrainDataParser
-    constructor: (@libxmljs) ->
+    constructor: (@libxmljs, @stationService) ->
 
     parse: (xml) ->
 
@@ -16,8 +16,8 @@ class TrainDataParser
             point: obj.get("//point").text() .split(' ')
             speed: obj.get("//speed").text()
             lateness: obj.get("//lateness").text(),
-            startStation: obj.get("//startStation").text(),
-            endStation: obj.get("//endStation").text()
+            startStation: @stationService.getStation(obj.get("//startStation").text() ),
+            endStation: @stationService.getStation(obj.get("//endStation").text() )
         }
 
     filter: (xml) ->
